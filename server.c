@@ -33,9 +33,9 @@ int main() {
     bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
 
     if (listen(welcomeSocket,5)==0)
-        printf("Listening\n");
+        printf("Escutando\n");
     else
-        printf("Error\n");
+        printf("Erro ao iniciar servidor\n");
 
     addr_size = sizeof serverStorage;
     Client1 = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
@@ -45,7 +45,7 @@ int main() {
     while (cmdEXIT == 0)
     {
         recv(Client1, buffer, 1024, 0);
-        printf ("%s\nEnvoie au Client2\n", buffer);
+        printf ("%s\nEnviou ao Cliente A\n", buffer);
         send(Client2,buffer,1024,0);
         if (compare_strings(buffer, "exit")==0)
         {   
@@ -55,7 +55,7 @@ int main() {
         {
             memset(&buffer[0], 0, sizeof(buffer));
             recv(Client2, buffer, 1024, 0);
-            printf ("%s\nEnvoie au Client1\n", buffer);
+            printf ("%s\nEnviou ao Client B\n", buffer);
             send(Client1,buffer,1024,0);
             if (compare_strings(buffer, "exit")==0)
             {
